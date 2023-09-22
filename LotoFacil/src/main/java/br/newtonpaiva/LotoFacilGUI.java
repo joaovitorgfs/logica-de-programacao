@@ -1,5 +1,3 @@
-package br.newtonpaiva;
-
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -14,7 +12,7 @@ public class LotoFacilGUI extends JFrame{
     private JButton jButtonAposta1 = new JButton("Aposta de 0 a 100");
     private JButton jButtonAposta2 = new JButton("Aposta de A á Z");
     private JButton jButtonAposta3 = new JButton("Aposta em par ou ímpar");
-    
+
     // Construtor
     public LotoFacilGUI(){
         this.setTitle("Loto Fácil - Interface Gráfica");
@@ -29,53 +27,69 @@ public class LotoFacilGUI extends JFrame{
         this.setVisible(true); // Exibir janela
 
         // Aposta 1
-            // Faça com que esse código aceite somente leitura de números
+        // Coloque um título nas janelas
         jButtonAposta1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String aposta = JOptionPane.showInputDialog(null,
-                        "Digite um número de 0 a 100");
+                        "Digite um número de 0 a 100",
+                        "Faça sua Aposta",
+                        JOptionPane.PLAIN_MESSAGE);
 
                 try {
-                    int numeroApostado = Integer.parseInt(aposta);
+                    if (aposta != null && !aposta.isEmpty()) {
+                        int numeroApostado = Integer.parseInt(aposta);
                     if (numeroApostado >= 0 && numeroApostado <= 100) {
                         Random rnd = new Random();
                         int sorteio = rnd.nextInt(101);
 
                         if (numeroApostado == sorteio) {
-                            JOptionPane.showMessageDialog(null, "Você ganhou R$ 1.000,00 reais");
+                            JOptionPane.showMessageDialog(null, "Você ganhou R$ 1.000,00 reais",
+                                    "Resultado da Aposta", JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Que pena, você perdeu! O número sorteado foi: " + sorteio);
+                            JOptionPane.showMessageDialog(null, "Que pena, você perdeu! O número sorteado foi: " + sorteio,
+                                    "Resultado da Aposta", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Por favor, digite um número entre 0 e 100.");
+                        JOptionPane.showMessageDialog(null, "Por favor, digite um número entre 0 e 100.",
+                                "Erro na Aposta", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                        JOptionPane.showMessageDialog(null, "Você não digitou um número.");
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.",
+                            "Erro na Aposta", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-       
+
         // Aposta 2
         jButtonAposta2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 char letraViciada = 'J';
-                String aposta = JOptionPane.showInputDialog(null, 
-                        "Digite uma letra de A á Z");
-                char letraApostada = aposta.charAt(0);
-                Character letraApostadaMaiusculo =  Character.toUpperCase(letraApostada);
+                String aposta = JOptionPane.showInputDialog(null,
+                        "Digite uma letra de A á Z",
+                        "Faça sua Aposta",
+                        JOptionPane.PLAIN_MESSAGE);
 
-                if(Character.isLetter(letraApostada)) {
-                    if(letraApostadaMaiusculo == letraViciada) {
-                        JOptionPane.showMessageDialog(null, "Você ganhou R$ 500,00 reais.");
+                if (aposta != null && !aposta.isEmpty()) {
+                    char letraApostada = aposta.charAt(0);
+                    Character letraApostadaMaiusculo = Character.toUpperCase(letraApostada);
+
+                    if (Character.isLetter(letraApostada)) {
+                        if (letraApostadaMaiusculo == letraViciada) {
+                            JOptionPane.showMessageDialog(null, "Você ganhou R$ 500,00 reais.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Que pena, você perdeu! A letra sorteada foi: " + letraViciada);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Que pena, você perdeu! A letra sorteada foi: " + letraViciada);
+                        JOptionPane.showMessageDialog(null, "Por favor, digite uma letra válida.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, digite uma letra válida.");
+                    JOptionPane.showMessageDialog(null, "Você não digitou uma letra.");
                 }
-
             }
         });
 
@@ -84,15 +98,21 @@ public class LotoFacilGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String aposta = JOptionPane.showInputDialog(null,
-                        "Digite um número qualquer");
+                        "Digite um número qualquer",
+                        "Faça sua Aposta",
+                        JOptionPane.PLAIN_MESSAGE);
 
                 try {
-                    int numeroApostado = Integer.parseInt(aposta);
+                    if (aposta != null && !aposta.isEmpty()) {
+                        int numeroApostado = Integer.parseInt(aposta);
 
-                    if (numeroApostado % 2 == 0) {
-                        JOptionPane.showMessageDialog(null, "Você ganhou R$ 100,00 reais.");
+                        if (numeroApostado % 2 == 0) {
+                            JOptionPane.showMessageDialog(null, "Você ganhou R$ 100,00 reais.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Que pena, você perdeu! O número sorteado era par.");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Que pena, você perdeu! O número sorteado era par.");
+                        JOptionPane.showMessageDialog(null, "Você não digitou um número.");
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor, digite um número válido.");
